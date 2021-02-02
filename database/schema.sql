@@ -51,11 +51,11 @@ CREATE TABLE "userCourses" (
 
 
 
-CREATE TABLE "round" (
+CREATE TABLE "rounds" (
 	"roundId" serial NOT NULL,
 	"userId" integer NOT NULL,
 	"courseId" integer NOT NULL,
-	"date" DATETIME NOT NULL,
+	"date" TIMESTAMP NOT NULL,
 	"totalScore" integer NOT NULL,
 	CONSTRAINT "round_pk" PRIMARY KEY ("roundId")
 ) WITH (
