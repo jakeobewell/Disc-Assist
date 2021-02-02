@@ -1,0 +1,18 @@
+.nav {
+  height: 70px;
+  background-color: #005723;
+  justify-content: center;
+  align-content: center;
+}
+
+.title {
+  color: #ced05c;
+  text-align: center;
+}
+
+.menu {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 2em;
+}
