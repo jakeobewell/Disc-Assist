@@ -60,3 +60,25 @@
   display: block;
   text-align: center;
 }
+
+.course-form {
+  border: solid black 3px;
+  margin-top: 15px;
+  width: 220px;
+  padding: 15px;
+}
+
+.course-form > label {
+  display: block;
+  margin-top: 15px;
+}
+
+.course-form > input {
+  border: solid black 3px;
+}
+
+.course-form > button {
+  display: block;
+  margin-left: auto;
+  margin-top: 15px;
+}
