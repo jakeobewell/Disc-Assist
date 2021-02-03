@@ -21,6 +21,7 @@ CREATE TABLE "courses" (
 	"courseId" serial NOT NULL,
 	"courseName" TEXT NOT NULL,
 	"holes" integer NOT NULL,
+	"city" TEXT NOT NULL,
 	CONSTRAINT "courses_pk" PRIMARY KEY ("courseId")
 ) WITH (
   OIDS=FALSE
@@ -66,10 +67,10 @@ CREATE TABLE "rounds" (
 
 
 
-ALTER TABLE "scores" ADD CONSTRAINT "scores_fk0" FOREIGN KEY ("roundId") REFERENCES "round"("roundId");
+ALTER TABLE "scores" ADD CONSTRAINT "scores_fk0" FOREIGN KEY ("roundId") REFERENCES "rounds"("roundId");
 
 ALTER TABLE "userCourses" ADD CONSTRAINT "userCourses_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
 ALTER TABLE "userCourses" ADD CONSTRAINT "userCourses_fk1" FOREIGN KEY ("courseId") REFERENCES "courses"("courseId");
 
-ALTER TABLE "round" ADD CONSTRAINT "round_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
-ALTER TABLE "round" ADD CONSTRAINT "round_fk1" FOREIGN KEY ("courseId") REFERENCES "courses"("courseId");
+ALTER TABLE "rounds" ADD CONSTRAINT "round_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
+ALTER TABLE "rounds" ADD CONSTRAINT "round_fk1" FOREIGN KEY ("courseId") REFERENCES "courses"("courseId");
