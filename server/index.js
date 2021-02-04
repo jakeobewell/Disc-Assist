@@ -1,4 +1,5 @@
 require('dotenv/config');
+const pg = require('pg');
 const express = require('express');
 const ClientError = require('./client-error');
 const errorMiddleware = require('./error-middleware');
@@ -21,24 +22,26 @@ app.post('/api/courses', (req, res, next) => {
   const { courseName, city } = req.body;
   const holes = parseInt(req.body.holes);
   const sql = `
-  insert into "courses" ("courseName, "city", "holes")
+  insert into "courses" ("courseName", "city", "holes")
   values ($1, $2, $3)
   returning *
   `;
   const params = [courseName, city, holes]
-  db.query(sql, params);
+  db.query(sql, params)
     .then(result => {
       const [newCourse] = result.rows;
       const courseId = newCourse.courseId;
       const userId = 1;
       const sqlTwo = `
-      insert into "userCourses" ("courseId, "userId")
+      insert into "userCourses" ("courseId", "userId")
       values ($1, $2)
       `;
-      return db.query(sqlTwo, params);
-      .then(()=> {
-        res.status(201).json(newCourse);
-      })
+      const paramsTwo = [courseId, userId];
+      db.query(sqlTwo, paramsTwo)
+      return newCourse;
+    })
+    .then(newCourse => {
+      res.status(201).json(newCourse);
     })
     .catch(err => next(err));
 });
