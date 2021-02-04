@@ -98,3 +98,21 @@
 #eighteen {
   margin-left: 20px;
 }
+
+.course-container {
+  border: solid black 3px;
+  padding: 15px;
+  width: 350px;
+}
+
+.button-container {
+  justify-content: space-evenly;
+}
+
+.button-container > button {
+  width: 100px;
+  height: 35px;
+  background-color: #005723;
+  color: white;
+  border-radius: 5px;
+}

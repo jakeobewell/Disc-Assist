@@ -32,7 +32,7 @@ export default class App extends React.Component {
     return (
       <>
         <Nav />
-        {this.renderPage()}
+        {/*{this.renderPage()}*/}
       </>
     );
   }
