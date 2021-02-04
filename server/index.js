@@ -17,16 +17,18 @@ const jsonMiddleware = express.json();
 
 app.use(jsonMiddleware);
 
-
 app.post('/api/courses', (req, res, next) => {
   const { courseName, city } = req.body;
+  if (!courseName || !city) {
+    throw new ClientError(400, 'courseName and city are required fields');
+  }
   const holes = parseInt(req.body.holes);
   const sql = `
   insert into "courses" ("courseName", "city", "holes")
   values ($1, $2, $3)
   returning *
   `;
-  const params = [courseName, city, holes]
+  const params = [courseName, city, holes];
   db.query(sql, params)
     .then(result => {
       const [newCourse] = result.rows;
@@ -37,7 +39,7 @@ app.post('/api/courses', (req, res, next) => {
       values ($1, $2)
       `;
       const paramsTwo = [courseId, userId];
-      db.query(sqlTwo, paramsTwo)
+      db.query(sqlTwo, paramsTwo);
       return newCourse;
     })
     .then(newCourse => {
@@ -45,7 +47,6 @@ app.post('/api/courses', (req, res, next) => {
     })
     .catch(err => next(err));
 });
-
 
 app.use(errorMiddleware);
 
