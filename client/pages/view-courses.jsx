@@ -4,8 +4,10 @@ export default class ViewCourses extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      courses: null
+      courses: []
     };
+    this.getCourses = this.getCourses.bind(this);
+    this.renderCourses = this.renderCourses.bind(this);
   }
 
   componentDidMount() {
@@ -13,24 +15,18 @@ export default class ViewCourses extends React.Component {
   }
 
   getCourses() {
-    const userId = {userId: 1};
-    fetch(`/api/courses`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(userId)
-    })
-    .then(response => response.json())
-    .then(data => this.setState({ courses: data }))
-    .catch(err => console.error(err));
+    const userId = 1;
+    fetch(`/api/courses/${userId}`)
+      .then(response => response.json())
+      .then(data => this.setState({ courses: data }))
+      .catch(err => console.error(err));
   }
 
   renderCourses() {
-    const courses = this.state.courses;
-    const courseList = courses.map((course) => {
+    const courses = [...this.state.courses];
+    const courseList = courses.map(course => {
       return (
-        <div className="course-container m-2">
+        <div className="course-container m-2" key={course.courseId}>
           <p>Course Name: {course.courseName}</p>
           <p>Location: {course.city}</p>
           <p>Number of Holes: {course.holes}</p>
@@ -39,14 +35,22 @@ export default class ViewCourses extends React.Component {
             <button>Edit Course</button>
           </div>
         </div>
-      )
-    })
+      );
+    });
+    return courseList;
   }
 
   render() {
     return (
-
-    )
+      <>
+        <h2 className="text-center">Courses</h2>
+        <div className="container-fluid">
+          <div className="row justify-content-center flex-wrap">
+            {this.renderCourses()}
+          </div>
+        </div>
+      </>
+    );
   }
 
 }

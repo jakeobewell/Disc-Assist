@@ -3,6 +3,7 @@ import Home from './pages/home';
 import parseRoute from './lib/parse-route';
 import Nav from './components/nav';
 import CourseForm from './pages/course-form';
+import ViewCourses from './pages/view-courses';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -26,13 +27,16 @@ export default class App extends React.Component {
     if (path === 'courseForm') {
       return <CourseForm />;
     }
+    if (path === 'courses') {
+      return <ViewCourses />;
+    }
   }
 
   render() {
     return (
       <>
         <Nav />
-        {/*{this.renderPage()}*/}
+        {this.renderPage()}
       </>
     );
   }

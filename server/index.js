@@ -17,8 +17,8 @@ const jsonMiddleware = express.json();
 
 app.use(jsonMiddleware);
 
-app.get('/api/courses', (req, res, next) => {
-  const userId = req.body.userId
+app.get('/api/courses/:userId', (req, res, next) => {
+  const userId = parseInt(req.params.userId);
   const sql = `
   select "courses"."courseName",
         "courses"."city",
