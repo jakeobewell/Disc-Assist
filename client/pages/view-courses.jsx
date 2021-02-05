@@ -31,8 +31,8 @@ export default class ViewCourses extends React.Component {
           <p>Location: {course.city}</p>
           <p>Number of Holes: {course.holes}</p>
           <div className="row button-container">
-            <button>Start Round</button>
-            <button>Edit Course</button>
+            <button id={`start${course.courseId}`}>Start Round</button>
+            <button id={`edit${course.courseId}`}>Edit Course</button>
           </div>
         </div>
       );
