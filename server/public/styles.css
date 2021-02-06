@@ -110,7 +110,8 @@
   flex-basis: 100%;
 }
 
-.button-container > button {
+
+.button-container > button, .course-button {
   width: 100px;
   height: 35px;
   background-color: #005723;
