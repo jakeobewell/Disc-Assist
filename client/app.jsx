@@ -4,6 +4,7 @@ import parseRoute from './lib/parse-route';
 import Nav from './components/nav';
 import CourseForm from './pages/course-form';
 import ViewCourses from './pages/view-courses';
+import RecordForm from './pages/record-form';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -29,6 +30,10 @@ export default class App extends React.Component {
     }
     if (path === 'courses') {
       return <ViewCourses />;
+    }
+    if (path === 'record-round') {
+      const courseId = this.state.route.params.get('courseId');
+      return <RecordForm courseId={courseId} />;
     }
   }
 

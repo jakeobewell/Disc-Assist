@@ -36,6 +36,22 @@ app.get('/api/courses/:userId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/course/:courseId', (req, res, next) => {
+  const courseId = parseInt(req.params.courseId);
+  const sql = `
+  select "courses"."courseName",
+        "courses"."holes"
+  from "courses"
+  where "courses"."courseId" = $1
+  `;
+  const params = [courseId];
+  db.query(sql, params)
+    .then(result => {
+      res.status(200).json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
 app.post('/api/courses', (req, res, next) => {
   const { courseName, city } = req.body;
   if (!courseName || !city) {
@@ -64,6 +80,39 @@ app.post('/api/courses', (req, res, next) => {
     .then(newCourse => {
       res.status(201).json(newCourse);
     })
+    .catch(err => next(err));
+});
+
+app.post('/api/rounds', (req, res, next) => {
+  const { round, scores } = req.body;
+  const { userId, courseId, totalScore } = round;
+  const date = 'now';
+  const sql = `
+  insert into "rounds" ("userId", "courseId", "totalScore", "date")
+  values ($1, $2, $3, $4)
+  returning *
+  `;
+  const params = [userId, courseId, totalScore, date];
+  db.query(sql, params)
+    .then(result => {
+      const [newRound] = result.rows;
+      const roundId = newRound.roundId;
+      const scoreParams = [];
+      let paramNumber = 0;
+
+      const scoreValues = scores.map(score => {
+        scoreParams.push(roundId, score.holeNumber, score.par, score.score);
+        return `($${++paramNumber}, $${++paramNumber},
+      $${++paramNumber}, $${++paramNumber})`;
+      });
+      const scoreSql = `
+    insert into "scores" ("roundId", "holeNumber", "par", "score")
+    values ${scoreValues.join(', ')}
+    returning *
+    `;
+      return db.query(scoreSql, scoreParams);
+    })
+    .then(res.sendStatus(201))
     .catch(err => next(err));
 });
 
