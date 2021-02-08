@@ -46,11 +46,11 @@ app.get('/api/course/:courseId', (req, res, next) => {
   `;
   const params = [courseId];
   db.query(sql, params)
-  .then(result => {
-    res.status(200).json(result.rows);
-  })
-  .catch(err => next(err));
-})
+    .then(result => {
+      res.status(200).json(result.rows);
+    })
+    .catch(err => next(err));
+});
 
 app.post('/api/courses', (req, res, next) => {
   const { courseName, city } = req.body;
@@ -86,7 +86,7 @@ app.post('/api/courses', (req, res, next) => {
 app.post('/api/rounds', (req, res, next) => {
   const { round, scores } = req.body;
   const { userId, courseId, totalScore } = round;
-  const date = Date.now();
+  const date = 'now';
   const sql = `
   insert into "rounds" ("userId", "courseId", "totalScore", "date")
   values ($1, $2, $3, $4)
@@ -94,27 +94,27 @@ app.post('/api/rounds', (req, res, next) => {
   `;
   const params = [userId, courseId, totalScore, date];
   db.query(sql, params)
-  .then(result => {
-    const [newRound] = results.rows;
-    const roundId = newRound.roundId;
-    const scoreParams = [];
-    let paramNumber = 0;
+    .then(result => {
+      const [newRound] = result.rows;
+      const roundId = newRound.roundId;
+      const scoreParams = [];
+      let paramNumber = 0;
 
-    const scoreValues = scores.map((score) => {
-      scoreParams.push(roundId, score.holeNumber, score.par, score.score);
-      return `($${++paramNumber}), ($${++paramNumber}),
-      ($${++paramNumber}), ($${++paramNumber})`;
-    });
-    const scoreSql = `
-    insert into "scores" ("roundId, "holeNumber", "par", "score)
+      const scoreValues = scores.map(score => {
+        scoreParams.push(roundId, score.holeNumber, score.par, score.score);
+        return `($${++paramNumber}, $${++paramNumber},
+      $${++paramNumber}, $${++paramNumber})`;
+      });
+      const scoreSql = `
+    insert into "scores" ("roundId", "holeNumber", "par", "score")
     values ${scoreValues.join(', ')}
     returning *
     `;
-    return db.query(scoreSql, scoreParams);
-  })
-  .then(res.sendStatus(201))
-  .catch(err => next(err));
-})
+      return db.query(scoreSql, scoreParams);
+    })
+    .then(res.sendStatus(201))
+    .catch(err => next(err));
+});
 
 app.use(errorMiddleware);
 
