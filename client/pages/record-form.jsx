@@ -1,5 +1,4 @@
 import React from 'react';
-import { render } from 'react-dom';
 
 export default class RecordForm extends React.Component {
   constructor(props) {
@@ -19,26 +18,26 @@ export default class RecordForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.renderHoles = this.renderHoles.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
-
 
   componentDidMount() {
     if (this.state.course.courseName === '') {
-    fetch(`/api/course/${this.props.courseId}`)
-      .then(res => res.json())
-      .then(result => {
-        const course = result[0];
-        const scores = [];
-        for (let i = 1; i < parseInt(course.holes) + 1; i++) {
-          scores.push({
-            holeNumber: i,
-            par: '',
-            score: ''
-          })
-        }
-        this.setState( { course, scores })
-      })
-      .catch(err => console.error(err));
+      fetch(`/api/course/${this.props.courseId}`)
+        .then(res => res.json())
+        .then(result => {
+          const course = result[0];
+          const scores = [];
+          for (let i = 1; i < parseInt(course.holes) + 1; i++) {
+            scores.push({
+              holeNumber: i,
+              par: '',
+              score: ''
+            });
+          }
+          this.setState({ course, scores });
+        })
+        .catch(err => console.error(err));
     }
   }
 
@@ -49,30 +48,29 @@ export default class RecordForm extends React.Component {
       const newScores = [...this.state.scores];
       if (event.target.value) {
         newScores[scoreIndex].par = parseInt(event.target.value);
-      }
-      else {
+      } else {
         newScores[scoreIndex].par = '';
       }
-      this.setState({ scores: newScores })
+      this.setState({ scores: newScores });
     }
     if (input.startsWith('score')) {
-      const scoreIndex = parseInt(input.slice(5)) -1;
+      const scoreIndex = parseInt(input.slice(5)) - 1;
       const newScores = [...this.state.scores];
-      if(event.target.value) {
-      newScores[scoreIndex].score = parseInt(event.target.value);
-      }
-      else{
+      if (event.target.value) {
+        newScores[scoreIndex].score = parseInt(event.target.value);
+      } else {
         newScores[scoreIndex].score = '';
       }
       const newRound = Object.assign({}, this.state.round);
       let newTotal = 0;
-      newScores.map((score) => {
+      newScores.map(score => {
         if (score.score !== '') {
-        newTotal += score.score
+          newTotal += score.score;
         }
-      })
+        return score;
+      });
       newRound.totalScore = newTotal;
-      this.setState({ scores: newScores,  round: newRound })
+      this.setState({ scores: newScores, round: newRound });
 
     }
   }
@@ -80,7 +78,7 @@ export default class RecordForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    fetch(`/api/rounds`, {
+    fetch('/api/rounds', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -88,16 +86,31 @@ export default class RecordForm extends React.Component {
       body: JSON.stringify(this.state)
     })
       .then(() => {
-        window.location.hash = '#'
+        window.location.hash = '#';
       })
       .catch(err => console.error(err));
+  }
+
+  handleClick(event) {
+    if (event.target.id === 'add-hole') {
+      const newScores = [...this.state.scores];
+      const courseUpdate = Object.assign({}, this.state.course);
+      courseUpdate.holes = courseUpdate.holes + 1;
+      const bonusHole = {
+        holeNumber: courseUpdate.holes,
+        par: '',
+        score: ''
+      };
+      newScores.push(bonusHole);
+      this.setState({ scores: newScores, course: courseUpdate });
+    }
   }
 
   renderHoles() {
     const scores = [...this.state.scores];
     if (scores !== []) {
-    const formHoles = scores.map((score) => {
-      return (
+      const formHoles = scores.map(score => {
+        return (
         <div className="row m-2 hole-row justify-content-around" key={score.holeNumber}>
           <p>Hole: {score.holeNumber}</p>
           <label htmlFor={`par${score.holeNumber}`}>Par: </label>
@@ -105,10 +118,10 @@ export default class RecordForm extends React.Component {
             <label htmlFor={`score${score.holeNumber}`}>Score: </label>
           <input id={`score${score.holeNumber}`} type="text" onChange={this.handleChange} value={score.score}></input>
         </div>
-      );
-    });
-    return formHoles;
-   }
+        );
+      });
+      return formHoles;
+    }
   }
 
   render() {
@@ -119,7 +132,7 @@ export default class RecordForm extends React.Component {
           <form className="record-form mx-0" onSubmit={this.handleSubmit}>
             {this.renderHoles()}
             <div className="row button-container">
-              <button>Add Hole</button>
+              <button id="add-hole" type="button" onClick={this.handleClick}>Add Hole</button>
               <button type="submit">Submit</button>
             </div>
           </form>
