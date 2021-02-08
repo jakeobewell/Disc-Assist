@@ -52,6 +52,23 @@ app.get('/api/course/:courseId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/rounds/:userId', (req, res, next) => {
+  const userId = parseInt(req.params.userId);
+  const sql = `
+  select "courses"."courseName", "rounds"."date",
+  "rounds"."totalScore", "rounds"."roundId"
+  from "rounds"
+  join "courses" using ("courseId")
+  where "rounds"."userId" = $1
+  `;
+  const params = [userId];
+  db.query(sql, params)
+    .then(result => {
+      res.status(200).json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
 app.post('/api/courses', (req, res, next) => {
   const { courseName, city } = req.body;
   if (!courseName || !city) {

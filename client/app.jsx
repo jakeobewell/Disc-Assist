@@ -5,6 +5,7 @@ import Nav from './components/nav';
 import CourseForm from './pages/course-form';
 import ViewCourses from './pages/view-courses';
 import RecordForm from './pages/record-form';
+import ViewRecords from './pages/view-records';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -35,13 +36,16 @@ export default class App extends React.Component {
       const courseId = this.state.route.params.get('courseId');
       return <RecordForm courseId={courseId} />;
     }
+    if (path === 'records') {
+      return <ViewRecords />;
+    }
   }
 
   render() {
     return (
       <>
         <Nav />
-        {this.renderPage()}
+       {this.renderPage()}
       </>
     );
   }
