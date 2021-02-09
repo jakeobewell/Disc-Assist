@@ -52,6 +52,21 @@ app.get('/api/course/:courseId', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/scores/:roundId', (req, res, next) => {
+  const roundId = parseInt(req.params.roundId);
+  const sql = `
+  select "scores"."holeNumber", "scores"."par", "scores"."score"
+  from "scores"
+  where "scores"."roundId" = $1
+  `;
+  const params = [roundId];
+  db.query(sql, params)
+    .then(result => {
+      res.status(200).json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
 app.get('/api/rounds/:userId', (req, res, next) => {
   const userId = parseInt(req.params.userId);
   const sql = `
@@ -60,6 +75,7 @@ app.get('/api/rounds/:userId', (req, res, next) => {
   from "rounds"
   join "courses" using ("courseId")
   where "rounds"."userId" = $1
+  order by "rounds"."roundId" desc
   `;
   const params = [userId];
   db.query(sql, params)

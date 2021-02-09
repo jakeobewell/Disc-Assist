@@ -33,7 +33,9 @@ export default class ViewRecords extends React.Component {
           <p>Course Name: {record.courseName}</p>
           <p>Date: {trimDate}</p>
           <p>Score: {record.totalScore}</p>
-          <button id={record.roundId} className="view-round-button">View Round</button>
+          <a className="view-round" href={`#round-data?roundId=${record.roundId}`}>
+            <button id={record.roundId} className="view-round-button">View Round</button>
+          </a>
         </div>
       );
     });

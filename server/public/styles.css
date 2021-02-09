@@ -112,7 +112,8 @@
 }
 
 .button-container > button,
-.course-button {
+.course-button,
+.back-button {
   width: 100px;
   height: 35px;
   background-color: #005723;
@@ -141,7 +142,8 @@
   margin-bottom: auto;
 }
 
-.record-form {
+.record-form,
+.record-data {
   width: 320px;
   border: solid black 3px;
 }
