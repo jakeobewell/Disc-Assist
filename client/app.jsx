@@ -8,6 +8,7 @@ import RecordForm from './pages/record-form';
 import ViewRecords from './pages/view-records';
 import RoundData from './pages/round-data';
 import ViewGraph from './pages/view-graph';
+import EditCourse from './pages/edit-course';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -47,6 +48,10 @@ export default class App extends React.Component {
     }
     if (path === 'view-graph') {
       return <ViewGraph />;
+    }
+    if (path === 'edit-course') {
+      const courseId = this.state.route.params.get('courseId');
+      return <EditCourse courseId={courseId} />;
     }
   }
 

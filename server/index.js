@@ -40,6 +40,7 @@ app.get('/api/course/:courseId', (req, res, next) => {
   const courseId = parseInt(req.params.courseId);
   const sql = `
   select "courses"."courseName",
+        "courses"."city",
         "courses"."holes"
   from "courses"
   where "courses"."courseId" = $1
@@ -158,6 +159,25 @@ app.post('/api/rounds', (req, res, next) => {
       return db.query(scoreSql, scoreParams);
     })
     .then(res.sendStatus(201))
+    .catch(err => next(err));
+});
+
+app.patch('/api/edit-course/:courseId', (req, res, next) => {
+  const courseId = req.params.courseId;
+  const { courseName, city } = req.body;
+  const holes = parseInt(req.body.holes);
+  const sql = `
+    update "courses"
+       set "courseName" = $1,
+           "city" = $2,
+           "holes" = $3
+     where "courseId" = $4
+    `;
+  const params = [courseName, city, holes, courseId];
+  db.query(sql, params)
+    .then(result => {
+      res.sendStatus(201);
+    })
     .catch(err => next(err));
 });
 

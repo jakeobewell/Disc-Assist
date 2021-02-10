@@ -11,6 +11,7 @@ export default class RecordForm extends React.Component {
       },
       course: {
         courseName: '',
+        city: '',
         holes: 18
       },
       scores: [],
