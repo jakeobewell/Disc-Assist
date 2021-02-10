@@ -162,6 +162,25 @@ app.post('/api/rounds', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.patch('/api/edit-course/:courseId', (req, res, next) => {
+  const courseId = req.params.courseId;
+  const { courseName, city } = req.body;
+  const holes = parseInt(req.body.holes);
+  const sql = `
+    update "courses"
+       set "courseName" = $1,
+           "city" = $2,
+           "holes" = $3
+     where "courseId" = $4
+    `;
+  const params = [courseName, city, holes, courseId];
+  db.query(sql, params)
+    .then(result => {
+      res.sendStatus(201);
+    })
+    .catch(err => next(err));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {

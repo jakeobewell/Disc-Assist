@@ -114,7 +114,8 @@
 .button-container > button,
 .course-button,
 .back-button,
-.graph-button {
+.graph-button,
+.submit-button {
   width: 100px;
   height: 35px;
   background-color: #005723;

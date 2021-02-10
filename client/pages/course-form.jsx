@@ -16,44 +16,42 @@ export default class CourseForm extends React.Component {
     event.preventDefault();
     if (this.state.courseName === '' ||
     this.state.city === '') {
-      return;
-    }
-    else {
-      fetch(`/api/courses`, {
+      // empty;
+    } else {
+      fetch('/api/courses', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(this.state)
       })
-      .then(() => {
-        event.target.reset();
-        window.location.hash = '#'
-      })
-      .catch(err => console.error(err));
+        .then(() => {
+          event.target.reset();
+          window.location.hash = '#';
+        })
+        .catch(err => console.error(err));
     }
   }
 
   handleChange(event) {
     const input = event.target.id;
     if (input === 'courseName') {
-      this.setState({ courseName: event.target.value })
+      this.setState({ courseName: event.target.value });
     }
     if (input === 'city') {
-      this.setState({ city: event.target.value })
+      this.setState({ city: event.target.value });
     }
     if (input === 'nine' || input === 'eighteen') {
-      this.setState({ holes: parseInt(event.target.value) })
+      this.setState({ holes: parseInt(event.target.value) });
     }
   }
 
   render() {
     let message = null;
     if (this.state.courseName === '') {
-      message = 'A course name is required'
-    }
-    else if (this.state.city === '') {
-      message = 'A city is required'
+      message = 'A course name is required';
+    } else if (this.state.city === '') {
+      message = 'A city is required';
     }
     return (
     <div className="container-fluid">
@@ -71,11 +69,11 @@ export default class CourseForm extends React.Component {
             <input id="eighteen" type="radio" value="18" checked={this.state.holes === 18} onChange={this.handleChange}></input>
             <label htmlFor="eighteen">18</label>
           </div>
-          <button type="submit" value="submit">Submit</button>
+          <button className="submit-button" type="submit" value="submit">Submit</button>
         </form>
       </div>
       <p className="text-center text-danger">{message}</p>
     </div>
-    )
+    );
   }
 }
