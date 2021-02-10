@@ -46,6 +46,9 @@ export default class ViewRecords extends React.Component {
     return (
       <>
         <h2 className="text-center">Records</h2>
+        <div className="row justify-content-center my-3">
+          <a href="#view-graph"><button className="graph-button">View Graph</button></a>
+        </div>
         <div className="container-fluid">
           <div className="row justify-content-center">
             {this.renderRecords()}

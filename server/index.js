@@ -69,7 +69,8 @@ app.get('/api/scores/:roundId', (req, res, next) => {
 
 app.get('/api/rounds/:userId', (req, res, next) => {
   const userId = parseInt(req.params.userId);
-  const sql = `
+  const sort = req.query.sort;
+  let sql = `
   select "courses"."courseName", "rounds"."date",
   "rounds"."totalScore", "rounds"."roundId"
   from "rounds"
@@ -77,6 +78,17 @@ app.get('/api/rounds/:userId', (req, res, next) => {
   where "rounds"."userId" = $1
   order by "rounds"."roundId" desc
   `;
+  if (sort === 'lastTen') {
+    sql = `
+  select "courses"."courseName", "rounds"."date",
+  "rounds"."totalScore", "rounds"."roundId"
+  from "rounds"
+  join "courses" using ("courseId")
+  where "rounds"."userId" = $1
+  order by "rounds"."roundId" desc
+  limit 10
+  `;
+  }
   const params = [userId];
   db.query(sql, params)
     .then(result => {

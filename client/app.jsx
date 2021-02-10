@@ -7,6 +7,7 @@ import ViewCourses from './pages/view-courses';
 import RecordForm from './pages/record-form';
 import ViewRecords from './pages/view-records';
 import RoundData from './pages/round-data';
+import ViewGraph from './pages/view-graph';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -43,6 +44,9 @@ export default class App extends React.Component {
     if (path === 'round-data') {
       const roundId = this.state.route.params.get('roundId');
       return <RoundData roundId={roundId} />;
+    }
+    if (path === 'view-graph') {
+      return <ViewGraph />;
     }
   }
 
