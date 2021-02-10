@@ -34,7 +34,7 @@ export default class ViewCourses extends React.Component {
             <a href={`#record-round?courseId=${course.courseId}`}>
               <button className="course-button" id={`start${course.courseId}`}>Start Round</button>
             </a>
-            <a href='#'>
+            <a href={`#edit-course?courseId=${course.courseId}`}>
               <button className="course-button" id={`edit${course.courseId}`}>Edit Course</button>
             </a>
           </div>

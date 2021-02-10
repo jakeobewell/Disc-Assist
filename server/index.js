@@ -40,6 +40,7 @@ app.get('/api/course/:courseId', (req, res, next) => {
   const courseId = parseInt(req.params.courseId);
   const sql = `
   select "courses"."courseName",
+        "courses"."city",
         "courses"."holes"
   from "courses"
   where "courses"."courseId" = $1
