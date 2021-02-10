@@ -52,7 +52,7 @@ export default class ViewGraph extends React.Component {
       <LineChart height={400} width={600} data={data}>
         <Line type='monotone' dataKey="score" stroke="#00aa44" />
         <CartesianGrid strokeDasharray='3 3' />
-        <XAxis dataKey='entry' />
+        <XAxis dataKey='entry' hide={true}/>
         <YAxis />
         <Tooltip />
       </LineChart>

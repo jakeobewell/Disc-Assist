@@ -43,7 +43,9 @@ export default class RoundData extends React.Component {
         <div className="record-data my-2">
           {this.renderScores()}
         </div>
-        <a href='#records'><button className="back-button m-2">Back</button></a>
+      </div>
+      <div className="row justify-content-center">
+          <a href='#records'><button className="back-button m-2">Back</button></a>
       </div>
     </div>
     );

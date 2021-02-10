@@ -13,7 +13,8 @@ export default class RecordForm extends React.Component {
         courseName: '',
         holes: 18
       },
-      scores: []
+      scores: [],
+      message: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.renderHoles = this.renderHoles.bind(this);
@@ -46,25 +47,26 @@ export default class RecordForm extends React.Component {
     if (input.startsWith('par')) {
       const scoreIndex = parseInt(input.slice(3)) - 1;
       const newScores = [...this.state.scores];
-      if (event.target.value) {
+
+      if (parseInt(event.target.value) || parseInt(event.target.value) === 0) {
         newScores[scoreIndex].par = parseInt(event.target.value);
       } else {
-        newScores[scoreIndex].par = '';
+        newScores[scoreIndex].par = event.target.value;
       }
       this.setState({ scores: newScores });
     }
     if (input.startsWith('score')) {
       const scoreIndex = parseInt(input.slice(5)) - 1;
       const newScores = [...this.state.scores];
-      if (event.target.value) {
+      if (parseInt(event.target.value) || parseInt(event.target.value) === 0) {
         newScores[scoreIndex].score = parseInt(event.target.value);
       } else {
-        newScores[scoreIndex].score = '';
+        newScores[scoreIndex].score = event.target.value;
       }
       const newRound = Object.assign({}, this.state.round);
       let newTotal = 0;
       newScores.map(score => {
-        if (score.score !== '') {
+        if (parseInt(score.score) || parseInt(score.score) === 0) {
           newTotal += score.score;
         }
         return score;
@@ -77,18 +79,32 @@ export default class RecordForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    let formStatus = true;
+    const scores = [...this.state.scores];
 
-    fetch('/api/rounds', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(this.state)
-    })
-      .then(() => {
-        window.location.hash = '#';
+    for (let i = 0; i < scores.length; i++) {
+      if ((parseInt(scores[i].score) || parseInt(scores[i].score) === 0) &&
+        (parseInt(scores[i].par) || parseInt(scores[i].par) === 0)) {
+        // empty
+      } else {
+        formStatus = false;
+      }
+    }
+    if (formStatus === true) {
+      fetch('/api/rounds', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(this.state)
       })
-      .catch(err => console.error(err));
+        .then(() => {
+          window.location.hash = '#';
+        })
+        .catch(err => console.error(err));
+    } else {
+      this.setState({ message: 'All par\'s and score\'s must be filled out with numbers' });
+    }
   }
 
   handleClick(event) {
@@ -131,12 +147,13 @@ export default class RecordForm extends React.Component {
         <div className="row justify-content-center mx-0">
           <form className="record-form mx-0" onSubmit={this.handleSubmit}>
             {this.renderHoles()}
-            <div className="row button-container">
+            <div className="row button-container m-2">
               <button id="add-hole" type="button" onClick={this.handleClick}>Add Hole</button>
               <button type="submit">Submit</button>
             </div>
           </form>
         </div>
+        <p className="text-center m-2 text-danger">{this.state.message}</p>
       </div>
     );
   }
