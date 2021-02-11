@@ -1,12 +1,12 @@
 .nav {
   height: 70px;
-  background-color: #005723;
+  background-color: #2f687e;
   justify-content: center;
   align-content: center;
 }
 
 .title {
-  color: #ced05c;
+  color: #fff;
   text-align: center;
 }
 
@@ -20,7 +20,7 @@
 .menu-container {
   width: 200px;
   height: 400px;
-  background-color: #005723;
+  background-color: #2f687e;
   border: solid black 2px;
   position: absolute;
   top: 70px;
@@ -48,12 +48,14 @@
 }
 
 .home-button {
-  background-color: #005723;
+  background-color: #8972a1;
   color: white;
   width: 200px;
   height: 50px;
   margin: 30px 0;
   border-radius: 10px;
+  font-size: 1.2em;
+  padding-bottom: 5px;
 }
 
 .home-anchor {
@@ -62,7 +64,7 @@
 }
 
 .course-form {
-  border: solid black 3px;
+  background-color: rgba(255, 255, 255, 0.6);
   margin-top: 15px;
   width: 220px;
   padding: 15px;
@@ -101,9 +103,9 @@
 
 .course-container,
 .record-container {
-  border: solid black 3px;
   padding: 15px;
   width: 350px;
+  background-color: rgba(255, 255, 255, 0.6);
 }
 
 .button-container {
@@ -118,7 +120,7 @@
 .submit-button {
   width: 100px;
   height: 35px;
-  background-color: #005723;
+  background-color: #8972a1;
   color: white;
   border-radius: 5px;
 }
@@ -129,7 +131,7 @@
 }
 
 .hole-row {
-  background-color: rgb(194, 194, 194);
+  background-color: rgba(255, 255, 255, 0.6);
   padding: 10px;
   width: 300px;
 }
@@ -147,11 +149,10 @@
 .record-form,
 .record-data {
   width: 320px;
-  border: solid black 3px;
 }
 
 .view-round-button {
-  background-color: #005723;
+  background-color: #8972a1;
   color: white;
   border-radius: 5px;
   height: 35px;
@@ -162,4 +163,20 @@
 
 .record-container {
   height: 150px;
+}
+
+.image {
+  height: 100%;
+  opacity: 0.8;
+}
+
+.image-container {
+  height: 100%;
+  position: fixed;
+  top: 0;
+  z-index: -3;
+}
+
+.graph-container {
+  background-color: rgba(255, 255, 255, 0.6);
 }

@@ -28,7 +28,6 @@ export default class Menu extends React.Component {
           <div className="menu-container">
             <a href="#" className="menu-anchor" onClick={this.handleClick}>Home</a>
             <a href="#courses" className="menu-anchor" onClick={this.handleClick}>View Your Courses</a>
-            <a href="#search" className="menu-anchor" onClick={this.handleClick}>Find Courses</a>
             <a href="#courseForm" className="menu-anchor" onClick={this.handleClick}>Enter New Course</a>
             <a href="#records" className="menu-anchor" onClick={this.handleClick}>Records</a>
           </div>

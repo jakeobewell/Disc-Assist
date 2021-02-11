@@ -69,7 +69,9 @@ export default class ViewGraph extends React.Component {
             <option value="allTime">All Time</option>
           </select>
         </form>
+        <div className="graph-container">
         {this.renderGraph()}
+        </div>
         <div className="row justify-content-center my-3">
           <a href='#records'><button className="back-button m-2">Back</button></a>
         </div>
