@@ -1,11 +1,12 @@
 import React from 'react';
+import AppContext from '../lib/app-context';
 
 export default class RecordForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       round: {
-        userId: 1,
+        userId: '',
         courseId: this.props.courseId,
         totalScore: 0
       },
@@ -37,7 +38,9 @@ export default class RecordForm extends React.Component {
               score: ''
             });
           }
-          this.setState({ course, scores });
+          const roundUpdate = Object.assign({}, this.state.round);
+          roundUpdate.userId = this.context.userId;
+          this.setState({ course, scores, round: roundUpdate });
         })
         .catch(err => console.error(err));
     }
@@ -159,3 +162,5 @@ export default class RecordForm extends React.Component {
     );
   }
 }
+
+RecordForm.contextType = AppContext;

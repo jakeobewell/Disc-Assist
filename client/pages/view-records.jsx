@@ -1,4 +1,5 @@
 import React from 'react';
+import AppContext from '../lib/app-context';
 
 export default class ViewRecords extends React.Component {
   constructor(props) {
@@ -15,7 +16,7 @@ export default class ViewRecords extends React.Component {
   }
 
   getRecords() {
-    const userId = 1;
+    const userId = this.context.userId;
     fetch(`/api/rounds/${userId}`)
       .then(response => response.json())
       .then(data => this.setState({ records: data }))
@@ -58,3 +59,5 @@ export default class ViewRecords extends React.Component {
     );
   }
 }
+
+ViewRecords.contextType = AppContext;
