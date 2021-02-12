@@ -1,5 +1,6 @@
 import React from 'react';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+import AppContext from '../lib/app-context';
 
 export default class ViewGraph extends React.Component {
   constructor(props) {
@@ -18,7 +19,7 @@ export default class ViewGraph extends React.Component {
   }
 
   handleChange(event) {
-    const userId = 1;
+    const userId = this.context.userId;
     const sortBy = event.target.value;
     fetch(`/api/rounds/${userId}?sort=${sortBy}`)
       .then(response => response.json())
@@ -27,7 +28,7 @@ export default class ViewGraph extends React.Component {
   }
 
   getRecords() {
-    const userId = 1;
+    const userId = this.context.userId;
     const sortBy = this.state.sortBy;
     fetch(`/api/rounds/${userId}?sort=${sortBy}`)
       .then(response => response.json())
@@ -80,3 +81,5 @@ export default class ViewGraph extends React.Component {
   }
 
 }
+
+ViewGraph.contextType = AppContext;

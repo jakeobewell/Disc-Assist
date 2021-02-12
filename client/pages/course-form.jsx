@@ -1,4 +1,5 @@
 import React from 'react';
+import AppContext from '../lib/app-context';
 
 export default class CourseForm extends React.Component {
   constructor(props) {
@@ -6,10 +7,15 @@ export default class CourseForm extends React.Component {
     this.state = {
       courseName: '',
       city: '',
-      holes: 18
+      holes: 18,
+      userId: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({ userId: this.context.userId });
   }
 
   handleSubmit(event) {
@@ -77,3 +83,5 @@ export default class CourseForm extends React.Component {
     );
   }
 }
+
+CourseForm.contextType = AppContext;

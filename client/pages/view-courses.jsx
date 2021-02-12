@@ -1,4 +1,5 @@
 import React from 'react';
+import AppContext from '../lib/app-context';
 
 export default class ViewCourses extends React.Component {
   constructor(props) {
@@ -15,7 +16,7 @@ export default class ViewCourses extends React.Component {
   }
 
   getCourses() {
-    const userId = 1;
+    const userId = this.context.userId;
     fetch(`/api/courses/${userId}`)
       .then(response => response.json())
       .then(data => this.setState({ courses: data }))
@@ -23,9 +24,10 @@ export default class ViewCourses extends React.Component {
   }
 
   renderCourses() {
-    const courses = [...this.state.courses];
-    const courseList = courses.map(course => {
-      return (
+    if (this.state.courses) {
+      const courses = [...this.state.courses];
+      const courseList = courses.map(course => {
+        return (
         <div className="course-container m-2" key={course.courseId}>
           <p>Course Name: {course.courseName}</p>
           <p>Location: {course.city}</p>
@@ -39,9 +41,10 @@ export default class ViewCourses extends React.Component {
             </a>
           </div>
         </div>
-      );
-    });
-    return courseList;
+        );
+      });
+      return courseList;
+    }
   }
 
   render() {
@@ -58,3 +61,5 @@ export default class ViewCourses extends React.Component {
   }
 
 }
+
+ViewCourses.contextType = AppContext;
