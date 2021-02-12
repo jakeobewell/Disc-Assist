@@ -7,7 +7,7 @@ export default class ViewGraph extends React.Component {
     super(props);
     this.state = {
       records: [],
-      sortBy: 'lastTen'
+      sortBy: 'lastFive'
     };
     this.getRecords = this.getRecords.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -66,7 +66,7 @@ export default class ViewGraph extends React.Component {
         <form className="view-select row justify-content-center my-3">
           <label htmlFor="view" className="mr-2">View:</label>
           <select id="view" name="view" onChange={this.handleChange}>
-            <option value="lastTen">Last Ten</option>
+            <option value="lastFive">Last Five</option>
             <option value="allTime">All Time</option>
           </select>
         </form>
