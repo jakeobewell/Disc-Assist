@@ -76,6 +76,7 @@
 
 .course-form > input {
   border: solid black 3px;
+  width: 180px;
 }
 
 .course-form > button {
