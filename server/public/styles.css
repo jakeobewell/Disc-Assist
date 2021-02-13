@@ -118,8 +118,8 @@
 .back-button,
 .graph-button,
 .submit-button {
-  width: 100px;
-  height: 35px;
+  width: 120px;
+  height: 40px;
   background-color: #8972a1;
   color: white;
   border-radius: 5px;
