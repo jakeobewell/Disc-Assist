@@ -1,3 +1,3 @@
-# final-project
+# DiscAssist
 
 A full stack JavaScript solo project.
