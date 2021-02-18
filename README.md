@@ -20,10 +20,10 @@ A full stack JavaScript solo project using React, Express, Node.js, and PostgreS
 
 ## Screenshots
 
-<img src="https://github.com/jakeobewell/Disc-Assist/blob/master/DiscAssist%20Screenshots/course-view.png" width="250">
-<img src="https://github.com/jakeobewell/Disc-Assist/blob/master/DiscAssist%20Screenshots/record-round-view.png" width="250">
-<img src="https://github.com/jakeobewell/Disc-Assist/blob/master/DiscAssist%20Screenshots/records-view.png" width="250">
-<img src="https://github.com/jakeobewell/Disc-Assist/blob/master/DiscAssist%20Screenshots/graph-view.png" width="250">
+<img src="https://github.com/jakeobewell/Disc-Assist/blob/master/DiscAssist%20Screenshots/course-view.png" width="250"><img src="https://github.com/jakeobewell/Disc-Assist/blob/master/DiscAssist%20Screenshots/record-round-view.png" width="250"><img src="https://github.com/jakeobewell/Disc-Assist/blob/master/DiscAssist%20Screenshots/records-view.png" width="250"><img src="https://github.com/jakeobewell/Disc-Assist/blob/master/DiscAssist%20Screenshots/graph-view.png" width="250">
+
+
+
 
 
 
