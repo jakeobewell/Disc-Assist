@@ -62,6 +62,9 @@ export default class SignUp extends React.Component {
           </form>
         </div>
         <p className="text-center text-danger">{message}</p>
+        <div className="row justify-content-center">
+          <a href='#'><button className="back-button m-2">Back</button></a>
+        </div>
       </div>
     );
   }

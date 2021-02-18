@@ -3,7 +3,7 @@ import React from 'react';
 export default function Home(props) {
   return (
     <>
-      <div className="container-fluid">
+      <div className="container-fluid home-container">
         <div className="row justify-content-center">
           <a href="#courses" className="home-anchor"><button className="home-button">Start Round</button></a>
         </div>
