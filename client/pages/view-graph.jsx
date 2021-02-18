@@ -64,7 +64,7 @@ export default class ViewGraph extends React.Component {
     return (
       <>
         <form className="view-select row justify-content-center my-3">
-          <label htmlFor="view" className="mr-2">View:</label>
+          <label htmlFor="view" className="mr-2 drop">View:</label>
           <select id="view" name="view" onChange={this.handleChange}>
             <option value="lastFive">Last Five</option>
             <option value="allTime">All Time</option>
