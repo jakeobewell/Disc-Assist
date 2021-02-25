@@ -98,7 +98,7 @@ export default class App extends React.Component {
     return (
       <AppContext.Provider value={contextValue}>
         <>
-          <Nav onSignOut={handleSignOut} />
+          <Nav onSignOut={handleSignOut} user={this.state.userId} />
           { this.renderPage() }
         </>
       </AppContext.Provider>
