@@ -174,11 +174,13 @@
 
 .image {
   height: 100vh;
+  min-width: 100%;
   opacity: 0.8;
 }
 
 .image-container {
   height: 100%;
+  min-width: 100%;
   position: fixed;
   top: 0;
   z-index: -3;
