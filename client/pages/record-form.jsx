@@ -22,6 +22,8 @@ export default class RecordForm extends React.Component {
     this.renderHoles = this.renderHoles.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handlePlus = this.handlePlus.bind(this);
+    this.handleMinus = this.handleMinus.bind(this);
   }
 
   componentDidMount() {
@@ -34,7 +36,7 @@ export default class RecordForm extends React.Component {
           for (let i = 1; i < parseInt(course.holes) + 1; i++) {
             scores.push({
               holeNumber: i,
-              par: '',
+              par: 3,
               score: ''
             });
           }
@@ -126,16 +128,36 @@ export default class RecordForm extends React.Component {
     }
   }
 
+  handlePlus() {
+    const input = event.target.id;
+    const scoreIndex = parseInt(input.slice(4)) - 1;
+    const newScores = [...this.state.scores];
+    newScores[scoreIndex].par += 1;
+    this.setState({ scores: newScores });
+  }
+
+  handleMinus() {
+    const input = event.target.id;
+    const scoreIndex = parseInt(input.slice(5)) - 1;
+    const newScores = [...this.state.scores];
+    newScores[scoreIndex].par -= 1;
+    this.setState({ scores: newScores });
+  }
+
   renderHoles() {
     const scores = [...this.state.scores];
     if (scores !== []) {
       const formHoles = scores.map(score => {
         return (
-        <div className="row m-2 hole-row justify-content-around" key={score.holeNumber}>
+        <div className="row m-2 hole-row justify-content-around align-items-center" key={score.holeNumber}>
           <p>Hole: {score.holeNumber}</p>
           <label htmlFor={`par${score.holeNumber}`}>Par: </label>
-          <input id={`par${score.holeNumber}`} type="text" onChange={this.handleChange} value={score.par}></input>
-            <label htmlFor={`score${score.holeNumber}`}>Score: </label>
+          <span className="par-span">
+            <button id={`minus${score.holeNumber}`} type="button" className="minus-button" onClick={this.handleMinus}>-</button>
+            <input id={`par${score.holeNumber}`} className="par-input" type="text" onChange={this.handleChange} value={score.par}></input>
+            <button id={`plus${score.holeNumber}`} type="button" className="plus-button" onClick={this.handlePlus}>+</button>
+          </span>
+          <label htmlFor={`score${score.holeNumber}`}>Score: </label>
           <input id={`score${score.holeNumber}`} type="text" onChange={this.handleChange} value={score.score}></input>
         </div>
         );

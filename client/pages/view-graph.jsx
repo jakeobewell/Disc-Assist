@@ -70,7 +70,7 @@ export default class ViewGraph extends React.Component {
             <option value="allTime">All Time</option>
           </select>
         </form>
-        <div className="graph-container">
+        <div className="graph-container row justify-content-center">
         {this.renderGraph()}
         </div>
         <div className="row justify-content-center my-3">
